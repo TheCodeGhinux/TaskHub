@@ -1,0 +1,5 @@
+.env
+/config/appConfig.yml
+app.log
+naija-prime-streaming.*
+tmp

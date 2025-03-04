@@ -1,0 +1,42 @@
+package repository
+
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+	"time"
+)
+
+// Profile struct
+type Profile struct {
+	ID          string    `json:"id" gorm:"primaryKey"`
+	FirstName   string    `json:"first_name"`
+	LastName    string    `json:"last_name"`
+	Phone       string    `json:"phone_number"`
+	AvatarUrl   string    `json:"avatar_url"`
+	Pronouns    string    `json:"pronouns"`
+	JobTitle    string    `json:"job_title"`
+	Department  string    `json:"department"`
+	Social      string    `json:"social"`
+	Bio         string    `json:"bio"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	UserID      string    `json:"user_id"`
+	User        User      `json:"user" gorm:"foreignKey:UserID` 
+}
+
+type User struct {
+	ID       string `json:"id" gorm:"primaryKey"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Profile  Profile `json:"profile" gorm:"constraint:OnDelete:CASCADE"` 
+}
+
+// PrePersist behavior to set a UUID before persisting
+func (p *Profile) BeforeCreate(tx *gorm.DB) (err error) {
+	if p.ID == "" {
+		p.ID = uuid.New().String()
+	}
+	return
+}
+

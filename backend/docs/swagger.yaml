@@ -1,0 +1,16 @@
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Naija prime streaming service microservice api built with Gin
+  termsOfService: http://swagger.io/terms/
+  title: Naija prime streaming service microservice api
+  version: "1.0"
+paths: {}
+securityDefinitions:
+  JWT:
+    in: header
+    name: token
+    type: apiKey
+swagger: "2.0"
